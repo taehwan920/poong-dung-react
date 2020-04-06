@@ -5,6 +5,11 @@ function App() {
   return (
     <main className="App">
       <Temperature></Temperature>
+      <footer>
+        <div>
+          <a target="blank" href="https://github.com/taehwan920"><i class="fab fa-github"></i></a>
+        </div>
+      </footer>
     </main>
   );
 }
