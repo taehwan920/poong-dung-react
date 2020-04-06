@@ -1,9 +1,11 @@
 import React from 'react';
+import Temperature from './Temperature';
 
 function App() {
   return (
-    <div className="App">
-    </div>
+    <main className="App">
+      <Temperature></Temperature>
+    </main>
   );
 }
 
