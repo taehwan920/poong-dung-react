@@ -1,0 +1,21 @@
+.temp {
+    background: rgba(0,0,0, 0.4);
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+@media (min-width: 800px) {
+    .temp {
+        width: 30vw;
+        height: 40vh;
+    }
+}
+
+
+@media (max-width: 799px) {
+    .temp {
+        width: 70vw;
+        height: 70vh;
+    }
+}
