@@ -50,9 +50,9 @@ export default class extends React.Component {
             <article className="temp">
                 {this.state.isLoading
                     ? [
-                        <span className="temp__now">지금 한강은...</span>,
-                        <span className="temp__temp">{this.state.temperature}</span>,
-                        <div className="temp__standard">오늘 {hours < 10 ? `0${hours}` : hours}시 기준</div>,
+                        <span className="temp__now">지 금 한 강 은...</span>,
+                        <span className="temp__temp">{this.state.temperature}℃</span>,
+                        <div className="temp__standard">오늘 {hours < 10 ? `0${hours}` : hours}시, 중랑천 기준</div>,
                         <div className="temp__bg-drop">
                             <i className="fas fa-tint"></i>
                         </div>
