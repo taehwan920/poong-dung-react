@@ -7,14 +7,11 @@ const db = mysql.createConnection({
     password: password,
     database: 'poongdung'
 });
-
 db.connect();
 
-const dbResult = db.query('SELECT * FROM hangang_temp', function (error, result) {
-    if (error) { throw error; }
-    const a = JSON.stringify(result)
-    console.log(a);
-    // return result;
-});
-
-export default dbResult;
+export const dbResult = (callback) => {
+    db.query('SELECT * FROM hangang_temp', (error, result) => {
+        if (error) { throw error; }
+        callback(result);
+    });
+};
