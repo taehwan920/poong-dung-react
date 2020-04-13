@@ -7,7 +7,13 @@ def is_joong(obj):
 
 
 def by_scheduler(obj):
-    if obj['MSR_TIME'] == '00:00' or '06:00' or '12:00' or '18:00':
+    if obj['MSR_TIME'] == '00:00':
+        return True
+    if obj['MSR_TIME'] == '06:00':
+        return True
+    if obj['MSR_TIME'] == '12:00':
+        return True
+    if obj['MSR_TIME'] == '18:00':
         return True
 
 
