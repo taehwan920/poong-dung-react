@@ -1,5 +1,5 @@
 import express from 'express';
-import db from './handelDB';
+import db from './handleDB';
 
 const app = express();
 

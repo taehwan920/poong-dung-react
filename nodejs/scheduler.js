@@ -1,29 +1,27 @@
 import schedule from 'node-schedule';
+import { PythonShell } from 'python-shell';
+
+const options = {
+    mode: 'text',
+    pythonPath: '',
+    pythonOptions: ['-u'],
+    scriptPath: 'C:/Users/taehw/Documents/poong-dung-react/nodejs/pythons',
+    args: []
+}
 
 const schedulerInit = () => {
-    schedule.scheduleJob('0 * * * * *', function () {
-        console.log('0초!')
-    });
+    const pyRun = () => {
+        PythonShell.run('insert_data.py', options, (err, results) => {
+            if (err) { throw err; }
+            console.log(results)
+        })
+    }
 
-    schedule.scheduleJob('10 * * * * *', function () {
-        console.log('10초!')
-    });
+    schedule.scheduleJob('* * 0 * * *', () => pyRun());
+    schedule.scheduleJob('* * 6 * * *', () => pyRun());
+    schedule.scheduleJob('* * 12 * * *', () => pyRun());
+    schedule.scheduleJob('* * 18 * * *', () => pyRun());
 
-    schedule.scheduleJob('20 * * * * *', function () {
-        console.log('20초!')
-    });
-
-    schedule.scheduleJob('30 * * * * *', function () {
-        console.log('30초!')
-    });
-
-    schedule.scheduleJob('40 * * * * *', function () {
-        console.log('40초!')
-    });
-
-    schedule.scheduleJob('50 * * * * *', function () {
-        console.log('50초!')
-    });
-}
+};
 
 export default schedulerInit;
