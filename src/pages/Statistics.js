@@ -1,16 +1,16 @@
 import React from 'react';
-import Temperature from './HomeComponents/Temperature';
 import Background from './Components/Background';
 import Footer from './Components/Footer';
+import Daily from './StatisticsComponents/Daily';
 
 export default class extends React.Component {
     render() {
         return (
             <main className="App">
-                <Temperature></Temperature>
+                <Daily></Daily>
                 <Background></Background>
                 <Footer></Footer>
             </main>
-        );
+        )
     }
 };

@@ -42,3 +42,23 @@
 .temp__now {
     font-size: 24px;
 }
+
+.temp__toStatistics {
+    width: 130px;
+    height: 54px;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.15);
+    position: absolute;
+    right : 20px;
+    top : 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.temp__toStatistics > .statistics__link {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    line-height: 20px;
+}

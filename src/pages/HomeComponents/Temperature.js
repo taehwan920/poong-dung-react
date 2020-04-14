@@ -35,7 +35,7 @@ export default class extends React.Component {
                         <span className="temp__now">지 금 한 강 은...</span>,
                         <span className="temp__temp">{temperature}℃</span>,
                         <div className="temp__toStatistics">
-                            <a href="/statistics">
+                            <a href="/statistics" className="statistics__link">
                                 통계 보기
                             </a>
                         </div>,
