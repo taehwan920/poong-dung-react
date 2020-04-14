@@ -3,38 +3,19 @@ import axios from 'axios';
 
 export default class extends React.Component {
     state = {
+        time: 0,
         temperature: 0,
         isLoading: false
     }
 
-    getTime = () => {
-        const getTime = new Date(),
-            year = getTime.getFullYear(),
-            month = getTime.getMonth() + 1,
-            day = getTime.getDate(),
-            hours = getTime.getHours();
-
-        return {
-            year,
-            month,
-            day,
-            hours
-        }
-    }
-
     getTemperature = async () => {
-        const getDate = this.getTime();
-
-        const year = getDate.year,
-            month = getDate.month,
-            day = getDate.day
-        const date = `${year}${month < 10 ? `0${month}` : `${month}`}${day < 10 ? `0${day}` : `${day}`}`;
-        const endpoint = `http://openapi.seoul.go.kr:8088/566261794c7461653638534c656f6d/JSON/WPOSInformationTime/1/5/${date}`;
+        const endpoint = `http://localhost:8080/db/1/1`;
         const data = await axios.get(endpoint);
-        const tempArray = data.data.WPOSInformationTime.row;
-        const temperature = Number(tempArray.filter(item => item.SITE_ID === '중랑천')[0].W_TEMP);
-
+        const latest = data.data[0]
+        const temperature = latest.temperature;
+        const time = latest.time;
         this.setState({
+            time,
             temperature,
             isLoading: true
         })
@@ -45,14 +26,15 @@ export default class extends React.Component {
     }
 
     render() {
-        const hours = this.getTime().hours;
+        const temperature = this.state.temperature;
+        const time = this.state.time;
         return (
             <article className="temp">
                 {this.state.isLoading
                     ? [
                         <span className="temp__now">지 금 한 강 은...</span>,
-                        <span className="temp__temp">{this.state.temperature}℃</span>,
-                        <div className="temp__standard">오늘 {hours < 10 ? `0${hours}` : hours}시, 중랑천 기준</div>,
+                        <span className="temp__temp">{temperature}℃</span>,
+                        <div className="temp__standard">오늘 {time < 10 ? `0${time}` : time}시, 중랑천 기준</div>,
                         <div className="temp__bg-drop">
                             <i className="fas fa-tint"></i>
                         </div>

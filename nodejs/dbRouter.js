@@ -24,6 +24,7 @@ router.get('/:start/:end', (req, res) => {
     } else {
         db.query(`SELECT * FROM hangang_temp ORDER BY id DESC LIMIT ${start}, ${dbEnd}`, (error, result) => {
             if (error) { throw error; };
+            console.log(result);
             res.json(result);
         });
     };
