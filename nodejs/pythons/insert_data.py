@@ -24,7 +24,7 @@ try:
         # 서버 확인용 메시지
         cursor = db.cursor()
         cursor.execute(
-            "SELECT * FROM ( SELECT * FROM hangang_temp ORDER BY id DESC LIMIT 1) sub ORDER BY id ASC")
+            "SELECT * FROM ( SELECT * FROM hangang_temp ORDER BY id DESC LIMIT 8) sub ORDER BY id ASC")
 
         print(f"this is new data! => {cursor.fetchall()}")
     else:
