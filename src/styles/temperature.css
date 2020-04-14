@@ -18,11 +18,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: -1;
 }
 
 .temp__bg-drop > .fa-tint {
-    font-size: 250px;
-    opacity: 0.1;
+    font-size: 300px;
+    opacity: 0.4;
 }
 
 .temp__standard {

@@ -34,6 +34,11 @@ export default class extends React.Component {
                     ? [
                         <span className="temp__now">지 금 한 강 은...</span>,
                         <span className="temp__temp">{temperature}℃</span>,
+                        <div className="temp__toStatistics">
+                            <a href="/statistics">
+                                통계 보기
+                            </a>
+                        </div>,
                         <div className="temp__standard">오늘 {time < 10 ? `0${time}` : time}시, 중랑천 기준</div>,
                         <div className="temp__bg-drop">
                             <i className="fas fa-tint"></i>
