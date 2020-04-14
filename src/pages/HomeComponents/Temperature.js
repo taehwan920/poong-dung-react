@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Drop from '../Components/Drop';
 
 export default class extends React.Component {
     state = {
@@ -40,9 +41,7 @@ export default class extends React.Component {
                             </a>
                         </div>,
                         <div className="temp__standard">오늘 {time < 10 ? `0${time}` : time}시, 중랑천 기준</div>,
-                        <div className="temp__bg-drop">
-                            <i className="fas fa-tint"></i>
-                        </div>
+                        <Drop></Drop>
                     ]
                     : 'Loading...'}
             </article>

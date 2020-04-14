@@ -12,13 +12,12 @@
 }
 
 .temp__bg-drop{
-    width: inherit;
+    width: 50%;
     height: inherit;
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: -1;
 }
 
 .temp__bg-drop > .fa-tint {
