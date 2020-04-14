@@ -1,5 +1,5 @@
 import schedulerInit from "./scheduler";
-import app from "./server";
+import app from "./app";
 
 schedulerInit();
 
