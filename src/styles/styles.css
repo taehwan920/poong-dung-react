@@ -1,4 +1,5 @@
-@import "./app.css";
+@import "./home.css";
+@import "./daily.css";
 @import "./reset.css";
 
 html, body, #root {
@@ -9,6 +10,10 @@ html, body, #root {
 
 *, *::before, *::after{
     box-sizing: inherit;
+}
+
+* > canvas {
+    z-index: 2;
 }
 
 #root{

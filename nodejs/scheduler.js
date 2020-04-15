@@ -16,10 +16,10 @@ const schedulerInit = () => {
             console.log(results)
         })
     }
-    schedule.scheduleJob('0 15 0 * * *', () => pyRun());
-    schedule.scheduleJob('0 15 6 * * *', () => pyRun());
-    schedule.scheduleJob('0 15 12 * * *', () => pyRun());
-    schedule.scheduleJob('0 15 18 * * *', () => pyRun());
+    schedule.scheduleJob('0 30 0 * * *', () => pyRun());
+    schedule.scheduleJob('0 30 6 * * *', () => pyRun());
+    schedule.scheduleJob('0 30 12 * * *', () => pyRun());
+    schedule.scheduleJob('0 30 18 * * *', () => pyRun());
 
 };
 
