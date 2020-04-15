@@ -5,19 +5,20 @@ const Standard = {
     canvasHeight: 500,
     frameStartX: 100,
     frameEndX: 900,
-    frameEndY: function () { return this.canvasHeight - this.frameOnY + 50 },
-    frameLineInterval: function () { return (this.frameOnY - this.frameEndY()) / 5 },
-    frameStartY: function () { return this.frameOnY - this.frameLineInterval() },
     frameOnY: 425,
+    lineStartY: 125,
+    lineEndY: 365, /* this.frameOnY - this.lineInterval */
+    lineInterval: 60, /* (this.frameOnY - this.lineStartY) / 5 */
     frameLineWidth: 2,
     frameStrokeStyle: 'rgba(255, 255, 255, 0.5)',
     dailyColor: '#C5F895',
     weekColor: '#9972AE',
-    tickStartY: 430,
-    tickEndY: 420,
-    tickStartX: function () { return this.frameStartX + 100 },
-    tickInterval: function () { return (this.frameEndX - 200) / 8 },
-    tickEndX: function () { return this.frameEndX - this.tickInterval() }
+    colorLineWidth: 3,
+    tickEndY: 430,
+    tickStartY: 420,
+    tickStartX: 100, /* this.frameStartX + 100 */
+    tickInterval: 87.5, /* (this.frameEndX - 200) / 8 */
+    tickEndX: 812.5, /* this.frameEndX - this.tickInterval */
 };
 
 
@@ -28,7 +29,7 @@ export function Title(ctx) {
     ctx.fillText('한강 수온 통계 그래프', 500, 58);
 };
 
-export function LineColour(ctx) {
+export function LineColor(ctx) {
     const dailyColor = Standard.dailyColor,
         weekColor = Standard.weekColor,
         textX = 940,
@@ -45,7 +46,7 @@ export function LineColour(ctx) {
 
     const colorXStart = 800;
     const colorXEnd = 840;
-    const colorLineWidth = 3;
+    const colorLineWidth = Standard.colorLineWidth;
     ctx.beginPath();
     ctx.moveTo(colorXStart, positionY1);
     ctx.lineTo(colorXEnd, positionY1);
@@ -79,13 +80,13 @@ export function AxisX(ctx) {
     ctx.stroke();
 
     //axis X - graph lines
-    const lastLine = Standard.frameEndY(),
-        lineInterval = Standard.frameLineInterval(),
-        startLine = Standard.frameStartY();
+    const startLine = Standard.lineStartY,
+        lineInterval = Standard.lineInterval,
+        endLine = Standard.lineEndY;
 
     const temps = ['-10℃', '0℃', '10℃', '20℃', '30℃'];
 
-    for (let i = startLine, j = 0; i >= lastLine; i -= lineInterval, j++) {
+    for (let i = endLine, j = 0; i >= startLine; i -= lineInterval, j++) {
         ctx.beginPath();
         ctx.moveTo(startAxisX, i);
         ctx.lineTo(endAxisX, i);
@@ -108,16 +109,16 @@ export function AxisX(ctx) {
 
 export function TickAndParams(ctx) {
     //hours ticks
-    const tickStartY = Standard.tickStartY,
-        tickEndY = Standard.tickEndY,
-        tickStartX = Standard.tickStartX(),
-        tickInterval = Standard.tickInterval(),
-        tickEndX = Standard.tickEndX(),
+    const tickEndY = Standard.tickEndY,
+        tickStartY = Standard.tickStartY,
+        tickStartX = Standard.tickStartX,
+        tickInterval = Standard.tickInterval,
+        tickEndX = Standard.tickEndX,
         notNow = tickStartX;
     for (let i = tickStartX, j = 48; i <= tickEndX; i += tickInterval, j -= 6) {
         ctx.beginPath();
-        ctx.moveTo(i, tickStartY);
-        ctx.lineTo(i, tickEndY);
+        ctx.moveTo(i, tickEndY);
+        ctx.lineTo(i, tickStartY);
         ctx.lineWidth = Standard.frameLineWidth;
         ctx.strokeStyle = Standard.frameStrokeStyle;
         ctx.stroke();
@@ -128,13 +129,13 @@ export function TickAndParams(ctx) {
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle'
             ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
-            ctx.fillText(`${j}시간 전`, i - tickInterval, tickStartY + 20);
+            ctx.fillText(`${j}시간 전`, i - tickInterval, tickEndY + 20);
         } else {
             ctx.font = '15.5px sans-serif';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle'
             ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
-            ctx.fillText(`지금`, tickEndX, tickStartY + 20);
+            ctx.fillText(`지금`, tickEndX, tickEndY + 20);
         }
     }
 };
@@ -142,17 +143,37 @@ export function TickAndParams(ctx) {
 
 export const DrawGraph = async (ctx) => {
     //set Grid of graph;
-    const graphStartX = Standard.tickStartX(),
-        graphEndX = Standard.tickEndX(),
-        graphStartY = Standard.tickStartX(),
-        graphEndY = Standard.tickEndX();
+    const graphIntervalX = Standard.tickInterval,
+        graphEndX = Standard.tickEndX,
+        graphStandardY = Standard.frameOnY - Standard.lineStartY;
 
     const endpoint = `http://localhost:8080/db/1/30`;
-    const data = await Axios.get(endpoint);
-    const lastEight = data.data.slice(-8);
-    lastEight.forEach(item => item.date = `${item.date.slice(-4, -2)}.${item.date.slice(-2)}`);
-    lastEight.forEach(item => item.time = `${item.time < 10 ? `0${item.time}시` : `${item.time}시`}`);
+    const datas = await Axios.get(endpoint);
 
+    const latestDatas = datas.data.slice(0, 8);
+    latestDatas.forEach(item => item.date = `${item.date.slice(-4, -2)}.${item.date.slice(-2)}`);
+    latestDatas.forEach(item => item.time = `${item.time < 10 ? `0${item.time}시` : `${item.time}시`}`);
+    const _latestDatas = Array.from(latestDatas);
+
+    for (let i = 7; i >= 0; i--) {
+        console.log(Standard.tickInterval);
+        debugger;
+        let dailyX = graphEndX - (graphIntervalX * i),
+            dailyY = (_latestDatas[i].teperature) / (graphStandardY);
+        if (i === 0) {
+            dailyX = graphEndX
+        }
+
+        console.log(dailyX, dailyY);
+        debugger;
+        ctx.beginPath();
+        ctx.moveTo(dailyX, dailyY);
+        ctx.lineTo(dailyX, dailyY);
+        ctx.lineWidth = Standard.colorLineWidth;
+        ctx.strokeStyle = Standard.dailyColor;
+        ctx.stroke();
+        ctx.closePath();
+    }
 
 
 }

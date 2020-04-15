@@ -1,6 +1,6 @@
 import React from 'react';
 import Drop from '../Components/Drop';
-import { AxisX, Title, LineColour, TickAndParams, DrawGraph } from './canvas';
+import { AxisX, Title, LineColor, TickAndParams, DrawGraph } from './canvas';
 
 
 export default class extends React.Component {
@@ -11,7 +11,7 @@ export default class extends React.Component {
         canvas.width = 1000
 
         Title(ctx);
-        LineColour(ctx);
+        LineColor(ctx);
         AxisX(ctx);
         TickAndParams(ctx);
         DrawGraph(ctx);
