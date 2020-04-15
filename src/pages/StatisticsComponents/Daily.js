@@ -1,10 +1,23 @@
+import Axios from 'axios';
 import React from 'react';
 import Drop from '../Components/Drop';
-import { axisX } from './axisX';
-import { title } from './title';
+import { axisX, title } from './canvas';
 
 
 export default class extends React.Component {
+    state = {
+        datas: []
+    }
+
+    getAPI = async () => {
+        const endpoint = `http://localhost:8080/db/1/8`;
+        const data = await Axios.get(endpoint);
+        const datas = data.data;
+        this.setState({
+            datas
+        })
+    }
+
     componentDidMount() {
         const canvas = this.refs.canvas,
             ctx = canvas.getContext("2d"),
