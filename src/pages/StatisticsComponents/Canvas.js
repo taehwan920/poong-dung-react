@@ -165,7 +165,27 @@ export const DrawGraph = async (ctx) => {
     };
     drawDailyLine(ctx, XYs);
 
-}
+    const monthlyTemps = datas.data.map(item => item.temperature);
+    const monthlyAverage = (monthlyTemps.reduce((accu, curr) => accu + curr) / monthlyTemps.length).toFixed(1);
+    const monthly = {
+        startX: Standard.tickStartX - 50,
+        endX: Standard.tickEndX + 50,
+        positionY: (gph.intervalY * (25 - monthlyAverage) / 5) + gph.startY,
+        lineWidth: 4,
+        strokeStyle: Standard.monthlyColor
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(monthly.startX, monthly.positionY);
+    ctx.lineTo(monthly.endX, monthly.positionY);
+    ctx.lineWidth = monthly.lineWidth;
+    ctx.strokeStyle = monthly.strokeStyle;
+    ctx.stroke();
+    ctx.closePath();
+};
+
+
+
 
 
 function tempCheck(temp, num) {
@@ -176,7 +196,7 @@ function tempCheck(temp, num) {
     } else {
         return temp;
     }
-}
+};
 
 function drawDailyPoint(ctx, X, Y) {
     ctx.beginPath();
@@ -185,7 +205,7 @@ function drawDailyPoint(ctx, X, Y) {
     ctx.fillStyle = Standard.dailyColor;
     ctx.fill();
     ctx.closePath();
-}
+};
 
 function drawDailyLine(ctx, arr) {
     let leftEnd = arr[0];
