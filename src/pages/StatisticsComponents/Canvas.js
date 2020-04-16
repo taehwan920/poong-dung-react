@@ -145,7 +145,6 @@ export const DrawGraph = async (ctx) => {
 
     const dailyEndpoint = `http://localhost:8080/db/1/8`;
     const dailyJSON = await Axios.get(dailyEndpoint);
-
     const dailyTemps = dailyJSON.data.map(item => item.temperature);
 
     const dailyXYs = [];
@@ -153,7 +152,7 @@ export const DrawGraph = async (ctx) => {
     for (let i = 0; i < dailyTemps.length; i++) {
         const dailyTemp = tempCheck(dailyTemps[i], i);
         let dailyX = gph.endX - (gph.intervalX * i)
-        let dailyY = (gph.intervalY * (25 - dailyTemp) / 5) + gph.startY;
+        let dailyY = Number(((gph.intervalY * (25 - dailyTemp) / 5) + gph.startY).toFixed(1));
         if (i === 0) {
             dailyX = gph.endX
         }
@@ -162,9 +161,8 @@ export const DrawGraph = async (ctx) => {
     };
     drawLine(ctx, dailyXYs, true);
 
-    const monthlyEndpoint = `http://localhost:8080/db/118/125`;
+    const monthlyEndpoint = `http://localhost:8080/db/125/132`;
     const monthlyJSON = await Axios.get(monthlyEndpoint);
-
     const monthlyTemps = monthlyJSON.data.map(item => item.temperature);
 
     const monthlyXYs = [];
@@ -172,7 +170,7 @@ export const DrawGraph = async (ctx) => {
     for (let i = 0; i < monthlyTemps.length; i++) {
         const dailyTemp = tempCheck(monthlyTemps[i], i);
         let monthlyX = gph.endX - (gph.intervalX * i)
-        let monthlyY = (gph.intervalY * (25 - dailyTemp) / 5) + gph.startY;
+        let monthlyY = Number(((gph.intervalY * (25 - dailyTemp) / 5) + gph.startY).toFixed(1));
         if (i === 0) {
             monthlyX = gph.endX
         }
@@ -180,26 +178,44 @@ export const DrawGraph = async (ctx) => {
         monthlyXYs.push({ X: monthlyX, Y: monthlyY });
     };
     drawLine(ctx, monthlyXYs, false);
-    // const monthlyAverage = (monthlyTemps.reduce((accu, curr) => accu + curr) / monthlyTemps.length).toFixed(1);
-    // const monthly = {
-    //     startX: Standard.tickStartX - 50,
-    //     endX: Standard.tickEndX + 50,
-    //     positionY: (gph.intervalY * (25 - monthlyAverage) / 5) + gph.startY,
-    //     lineWidth: 4,
-    //     strokeStyle: Standard.monthlyColor
-    // }
 
-    // ctx.beginPath();
-    // ctx.moveTo(monthly.startX, monthly.positionY);
-    // ctx.lineTo(monthly.endX, monthly.positionY);
-    // ctx.lineWidth = monthly.lineWidth;
-    // ctx.strokeStyle = monthly.strokeStyle;
-    // ctx.stroke();
-    // ctx.closePath();
+
+    dailyXYs.reverse();
+    console.table(dailyXYs);
+    const onCanvas = document.querySelector('#statistics')
+    if (onCanvas) {
+        onCanvas.addEventListener('mousemove', (e) => {
+            const mouseX = e.offsetX;
+            if (mouseX <= dailyXYs[0].X) {
+                console.log('sec1')
+            }
+            if (mouseX <= dailyXYs[1].X && mouseX > dailyXYs[0].X) {
+                console.log('sec2')
+            }
+            if (mouseX <= dailyXYs[2].X && mouseX > dailyXYs[1].X) {
+                console.log('sec3')
+            }
+            if (mouseX <= dailyXYs[3].X && mouseX > dailyXYs[2].X) {
+                console.log('sec4')
+            }
+            if (mouseX <= dailyXYs[4].X && mouseX > dailyXYs[3].X) {
+                console.log('sec5')
+            }
+            if (mouseX <= dailyXYs[5].X && mouseX > dailyXYs[4].X) {
+                console.log('sec6')
+            }
+            if (mouseX <= dailyXYs[6].X && mouseX > dailyXYs[5].X) {
+                console.log('sec7')
+            }
+            if (mouseX <= dailyXYs[7].X && mouseX > dailyXYs[6].X) {
+                console.log('sec8')
+            }
+            if (mouseX > dailyXYs[7].X) {
+                console.log('sec9')
+            }
+        }, false);
+    }
 };
-
-// function dataParse(arr)
-
 
 function tempCheck(temp, num) {
     if (temp === 99.9) {

@@ -21,7 +21,7 @@ def refine_obj(obj):
     return {
         'date': obj['MSR_DATE'],
         'time': int(obj['MSR_TIME'][0:2]),
-        'temperature': float(obj['W_TEMP']) if obj['W_TEMP'] != '점검중' else 99.9
+        'temperature': float(obj['W_TEMP']) if obj['W_TEMP'] != '점검중' else 12.5
     }
 
 
@@ -33,7 +33,7 @@ def obj_factory(li):
 
 
 start_page = 1
-end_page = 20
+end_page = 10
 
 arr_data = []
 

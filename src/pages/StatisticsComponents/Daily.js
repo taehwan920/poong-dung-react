@@ -5,7 +5,7 @@ import { AxisX, Title, LineColor, TickAndParams, DrawGraph } from './canvas';
 
 export default class extends React.Component {
     componentDidMount() {
-        const canvas = document.querySelector("#daily-temp"),
+        const canvas = document.querySelector("#statistics"),
             ctx = canvas.getContext("2d");
         canvas.height = 500;
         canvas.width = 1000
@@ -20,7 +20,12 @@ export default class extends React.Component {
     render() {
         return (
             <article className="temp">
-                <canvas id="daily-temp"></canvas>
+                <canvas id="statistics"></canvas>
+                <div className="temp__toStatistics">
+                    <a href="/" className="statistics__link">
+                        홈으로
+                    </a>
+                </div>
                 <Drop></Drop>
             </article>
         )
