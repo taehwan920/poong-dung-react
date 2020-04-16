@@ -186,32 +186,21 @@ export const DrawGraph = async (ctx) => {
     if (onCanvas) {
         onCanvas.addEventListener('mousemove', (e) => {
             const mouseX = e.offsetX;
-            if (mouseX <= dailyXYs[0].X) {
-                console.log('sec1')
+            const coorX = {
+                0: [-Infinity, dailyXYs[0].X],
+                1: [dailyXYs[0].X, dailyXYs[1].X],
+                2: [dailyXYs[1].X, dailyXYs[2].X],
+                3: [dailyXYs[2].X, dailyXYs[3].X],
+                4: [dailyXYs[3].X, dailyXYs[4].X],
+                5: [dailyXYs[4].X, dailyXYs[5].X],
+                6: [dailyXYs[5].X, dailyXYs[6].X],
+                7: [dailyXYs[6].X, dailyXYs[7].X],
+                8: [dailyXYs[7].X, Infinity]
             }
-            if (mouseX <= dailyXYs[1].X && mouseX > dailyXYs[0].X) {
-                console.log('sec2')
-            }
-            if (mouseX <= dailyXYs[2].X && mouseX > dailyXYs[1].X) {
-                console.log('sec3')
-            }
-            if (mouseX <= dailyXYs[3].X && mouseX > dailyXYs[2].X) {
-                console.log('sec4')
-            }
-            if (mouseX <= dailyXYs[4].X && mouseX > dailyXYs[3].X) {
-                console.log('sec5')
-            }
-            if (mouseX <= dailyXYs[5].X && mouseX > dailyXYs[4].X) {
-                console.log('sec6')
-            }
-            if (mouseX <= dailyXYs[6].X && mouseX > dailyXYs[5].X) {
-                console.log('sec7')
-            }
-            if (mouseX <= dailyXYs[7].X && mouseX > dailyXYs[6].X) {
-                console.log('sec8')
-            }
-            if (mouseX > dailyXYs[7].X) {
-                console.log('sec9')
+            for (const key in coorX) {
+                if (mouseX > coorX[key][0] && mouseX <= coorX[key][1]) {
+                    console.log(`sec${key}`)
+                }
             }
         }, false);
     }
