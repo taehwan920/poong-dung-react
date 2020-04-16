@@ -15,7 +15,6 @@ export default class extends React.Component {
         AxisX(ctx);
         TickAndParams(ctx);
         DrawGraph(ctx);
-
     }
 
     render() {

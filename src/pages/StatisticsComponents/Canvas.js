@@ -77,7 +77,7 @@ export function LineColor(ctx) {
     ctx.textBaseline = 'middle'
     ctx.fillStyle = Standard.textFillStyle;
     ctx.fillText('일일 변동 수온', eg.textX, eg.positionY1);
-    ctx.fillText('월간 평균 수온', eg.textX, eg.positionY2);
+    ctx.fillText('전월 변동 수온', eg.textX, eg.positionY2);
 
 
     ctx.beginPath();
@@ -143,15 +143,12 @@ export const DrawGraph = async (ctx) => {
         stdY: Standard.frameEndY - Standard.frameStartY
     };
 
-    const endpoint = `http://localhost:8080/db/1/30`;
-    const datas = await Axios.get(endpoint);
+    const dailyEndpoint = `http://localhost:8080/db/1/8`;
+    const dailyJSON = await Axios.get(dailyEndpoint);
 
-    const dailyDatas = datas.data.slice(0, 8).reverse(); //시간 순 정렬
-    dailyDatas.forEach(item => item.date = `${item.date.slice(-4, -2)}.${item.date.slice(-2)}`);
-    dailyDatas.forEach(item => item.time = `${item.time < 10 ? `0${item.time}시` : `${item.time}시`}`);
-    const dailyTemps = dailyDatas.map(item => item.temperature);
+    const dailyTemps = dailyJSON.data.map(item => item.temperature);
 
-    const XYs = [];
+    const dailyXYs = [];
 
     for (let i = 0; i < dailyTemps.length; i++) {
         const dailyTemp = tempCheck(dailyTemps[i], i);
@@ -160,32 +157,48 @@ export const DrawGraph = async (ctx) => {
         if (i === 0) {
             dailyX = gph.endX
         }
-        drawDailyPoint(ctx, dailyX, dailyY);
-        XYs.push({ X: dailyX, Y: dailyY });
+        drawPoint(ctx, dailyX, dailyY, true);
+        dailyXYs.push({ X: dailyX, Y: dailyY });
     };
-    drawDailyLine(ctx, XYs);
+    drawLine(ctx, dailyXYs, true);
 
-    const monthlyTemps = datas.data.map(item => item.temperature);
-    const monthlyAverage = (monthlyTemps.reduce((accu, curr) => accu + curr) / monthlyTemps.length).toFixed(1);
-    const monthly = {
-        startX: Standard.tickStartX - 50,
-        endX: Standard.tickEndX + 50,
-        positionY: (gph.intervalY * (25 - monthlyAverage) / 5) + gph.startY,
-        lineWidth: 4,
-        strokeStyle: Standard.monthlyColor
-    }
+    const monthlyEndpoint = `http://localhost:8080/db/118/125`;
+    const monthlyJSON = await Axios.get(monthlyEndpoint);
 
-    ctx.beginPath();
-    ctx.moveTo(monthly.startX, monthly.positionY);
-    ctx.lineTo(monthly.endX, monthly.positionY);
-    ctx.lineWidth = monthly.lineWidth;
-    ctx.strokeStyle = monthly.strokeStyle;
-    ctx.stroke();
-    ctx.closePath();
+    const monthlyTemps = monthlyJSON.data.map(item => item.temperature);
+
+    const monthlyXYs = [];
+
+    for (let i = 0; i < monthlyTemps.length; i++) {
+        const dailyTemp = tempCheck(monthlyTemps[i], i);
+        let monthlyX = gph.endX - (gph.intervalX * i)
+        let monthlyY = (gph.intervalY * (25 - dailyTemp) / 5) + gph.startY;
+        if (i === 0) {
+            monthlyX = gph.endX
+        }
+        drawPoint(ctx, monthlyX, monthlyY, false);
+        monthlyXYs.push({ X: monthlyX, Y: monthlyY });
+    };
+    drawLine(ctx, monthlyXYs, false);
+    // const monthlyAverage = (monthlyTemps.reduce((accu, curr) => accu + curr) / monthlyTemps.length).toFixed(1);
+    // const monthly = {
+    //     startX: Standard.tickStartX - 50,
+    //     endX: Standard.tickEndX + 50,
+    //     positionY: (gph.intervalY * (25 - monthlyAverage) / 5) + gph.startY,
+    //     lineWidth: 4,
+    //     strokeStyle: Standard.monthlyColor
+    // }
+
+    // ctx.beginPath();
+    // ctx.moveTo(monthly.startX, monthly.positionY);
+    // ctx.lineTo(monthly.endX, monthly.positionY);
+    // ctx.lineWidth = monthly.lineWidth;
+    // ctx.strokeStyle = monthly.strokeStyle;
+    // ctx.stroke();
+    // ctx.closePath();
 };
 
-
-
+// function dataParse(arr)
 
 
 function tempCheck(temp, num) {
@@ -198,16 +211,16 @@ function tempCheck(temp, num) {
     }
 };
 
-function drawDailyPoint(ctx, X, Y) {
+function drawPoint(ctx, X, Y, bool) {
     ctx.beginPath();
     ctx.arc(X, Y, 6, Y - 5, Math.PI, true);
     ctx.lineWidth = Standard.colorLineWidth;
-    ctx.fillStyle = Standard.dailyColor;
+    ctx.fillStyle = bool ? Standard.dailyColor : Standard.monthlyColor;
     ctx.fill();
     ctx.closePath();
 };
 
-function drawDailyLine(ctx, arr) {
+function drawLine(ctx, arr, bool) {
     let leftEnd = arr[0];
 
     for (let i = 1; i < arr.length; i++) {
@@ -216,7 +229,7 @@ function drawDailyLine(ctx, arr) {
         leftEnd = arr[i]
         ctx.lineTo(leftEnd.X, leftEnd.Y);
         ctx.lineWidth = 4;
-        ctx.strokeStyle = Standard.dailyColor;
+        ctx.strokeStyle = bool ? Standard.dailyColor : Standard.monthlyColor;
         ctx.stroke();
         ctx.closePath();
     }
