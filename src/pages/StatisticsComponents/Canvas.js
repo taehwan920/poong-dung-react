@@ -86,7 +86,6 @@ export function LineColor(ctx) {
     ctx.lineWidth = eg.lineWidth;
     ctx.strokeStyle = eg.dailyColor;
     ctx.stroke();
-    ctx.closePath();
 
     ctx.beginPath();
     ctx.moveTo(eg.StartX, eg.positionY2);
@@ -94,7 +93,6 @@ export function LineColor(ctx) {
     ctx.lineWidth = eg.lineWidth;
     ctx.strokeStyle = eg.monthlyColor;
     ctx.stroke();
-    ctx.closePath();
 };
 
 export function TickAndParams(ctx) {
@@ -115,7 +113,6 @@ export function TickAndParams(ctx) {
         ctx.lineWidth = Standard.frameLineWidth;
         ctx.strokeStyle = Standard.frameStrokeStyle;
         ctx.stroke();
-        ctx.closePath();
 
         if (i !== notNow) {
             ctx.font = '15.5px sans-serif';
@@ -145,7 +142,8 @@ export const DrawGraph = async (ctx) => {
 
     const dailyEndpoint = `http://localhost:8080/db/1/8`;
     const dailyJSON = await Axios.get(dailyEndpoint);
-    const dailyTemps = dailyJSON.data.map(item => item.temperature);
+    const dailyDatas = dailyJSON.data;
+    const dailyTemps = dailyDatas.map(item => item.temperature);
 
     const dailyXYs = [];
 
@@ -163,7 +161,8 @@ export const DrawGraph = async (ctx) => {
 
     const monthlyEndpoint = `http://localhost:8080/db/125/132`;
     const monthlyJSON = await Axios.get(monthlyEndpoint);
-    const monthlyTemps = monthlyJSON.data.map(item => item.temperature);
+    const monthlyDatas = monthlyJSON.data;
+    const monthlyTemps = monthlyDatas.map(item => item.temperature);
 
     const monthlyXYs = [];
 
@@ -181,28 +180,42 @@ export const DrawGraph = async (ctx) => {
 
 
     dailyXYs.reverse();
-    console.table(dailyXYs);
-    const onCanvas = document.querySelector('#statistics')
+    monthlyXYs.reverse();
+    const onCanvas = document.querySelector('#statistics');
+    const tempBox = document.querySelectorAll('.sta-temp');
+    const box1 = document.querySelector('.sta-box1');
+    const box2 = document.querySelector('.sta-box2');
     if (onCanvas) {
+        const coorX = {
+            0: [Standard.frameStartX, dailyXYs[0].X],
+            1: [dailyXYs[0].X, dailyXYs[1].X],
+            2: [dailyXYs[1].X, dailyXYs[2].X],
+            3: [dailyXYs[2].X, dailyXYs[3].X],
+            4: [dailyXYs[3].X, dailyXYs[4].X],
+            5: [dailyXYs[4].X, dailyXYs[5].X],
+            6: [dailyXYs[5].X, dailyXYs[6].X],
+            7: [dailyXYs[6].X, Standard.frameEndX]
+        }
+        ctx.save();
         onCanvas.addEventListener('mousemove', (e) => {
             const mouseX = e.offsetX;
-            const coorX = {
-                0: [-Infinity, dailyXYs[0].X],
-                1: [dailyXYs[0].X, dailyXYs[1].X],
-                2: [dailyXYs[1].X, dailyXYs[2].X],
-                3: [dailyXYs[2].X, dailyXYs[3].X],
-                4: [dailyXYs[3].X, dailyXYs[4].X],
-                5: [dailyXYs[4].X, dailyXYs[5].X],
-                6: [dailyXYs[5].X, dailyXYs[6].X],
-                7: [dailyXYs[6].X, dailyXYs[7].X],
-                8: [dailyXYs[7].X, Infinity]
-            }
             for (const key in coorX) {
                 if (mouseX > coorX[key][0] && mouseX <= coorX[key][1]) {
-                    console.log(`sec${key}`)
+                    const numKey = Number(key);
+                    tempBox.forEach(box => {
+                        box.classList.add('sta-visualize');
+                    });
+                    console.log(dailyXYs[numKey].Y);
+                    box1.style.setProperty('bottom', `${dailyXYs[numKey].Y}px`)
+                    box1.style.setProperty('left', `${dailyXYs[numKey].X}px`)
+                    box2.style.setProperty('bottom', `${monthlyXYs[numKey].Y}px`)
+                    box2.style.setProperty('left', `${monthlyXYs[numKey].X}px`)
                 }
-            }
-        }, false);
+            };
+        });
+        onCanvas.addEventListener('mouseleave', () => {
+            tempBox.forEach(box => { box.classList.remove('sta-visualize') })
+        });
     }
 };
 
@@ -219,7 +232,6 @@ function tempCheck(temp, num) {
 function drawPoint(ctx, X, Y, bool) {
     ctx.beginPath();
     ctx.arc(X, Y, 6, Y - 5, Math.PI, true);
-    ctx.lineWidth = Standard.colorLineWidth;
     ctx.fillStyle = bool ? Standard.dailyColor : Standard.monthlyColor;
     ctx.fill();
     ctx.closePath();

@@ -26,6 +26,8 @@ export default class extends React.Component {
                         홈으로
                     </a>
                 </div>
+                <div className="sta-box1 sta-temp">d</div>
+                <div className="sta-box2 sta-temp">d</div>
                 <Drop></Drop>
             </article>
         )

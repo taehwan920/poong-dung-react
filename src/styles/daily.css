@@ -1,0 +1,25 @@
+.sta-temp{
+    width: 70px;
+    height: 30px;
+    background: red;
+    text-align: center;
+    font-size: 20px;
+    line-height: 27px;
+    z-index: 1000;
+    position: absolute;
+    display: none;
+}
+
+.sta-box1{
+    bottom: 0;
+    left: 0;
+}
+
+.sta-box2{
+    bottom: 0;
+    left: 0;
+}
+
+.sta-visualize{
+    display: block;
+}
