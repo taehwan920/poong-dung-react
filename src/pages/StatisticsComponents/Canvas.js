@@ -180,7 +180,9 @@ export const DrawGraph = async (ctx) => {
 
 
     dailyXYs.reverse();
+    dailyTemps.reverse();
     monthlyXYs.reverse();
+    monthlyTemps.reverse();
     const onCanvas = document.querySelector('#statistics');
     const tempBox = document.querySelectorAll('.sta-temp');
     const box1 = document.querySelector('.sta-box1');
@@ -205,11 +207,13 @@ export const DrawGraph = async (ctx) => {
                     tempBox.forEach(box => {
                         box.classList.add('sta-visualize');
                     });
-                    console.log(dailyXYs[numKey].Y);
-                    box1.style.setProperty('bottom', `${dailyXYs[numKey].Y}px`)
-                    box1.style.setProperty('left', `${dailyXYs[numKey].X}px`)
-                    box2.style.setProperty('bottom', `${monthlyXYs[numKey].Y}px`)
-                    box2.style.setProperty('left', `${monthlyXYs[numKey].X}px`)
+                    box1.style.setProperty('top', `${dailyXYs[numKey].Y - 42.5}px`);
+                    box1.style.setProperty('left', `${dailyXYs[numKey].X - 85}px`);
+                    box1.innerHTML = `${dailyTemps[key]}℃`;
+                    box2.style.setProperty('top', `${monthlyXYs[numKey].Y - 42.5}px`);
+                    box2.style.setProperty('left', `${monthlyXYs[numKey].X - 85}px`);
+                    box2.innerHTML = `${monthlyTemps[key]}℃`;
+
                 }
             };
         });

@@ -5,10 +5,10 @@ import { AxisX, Title, LineColor, TickAndParams, DrawGraph } from './canvas';
 
 export default class extends React.Component {
     componentDidMount() {
-        const canvas = document.querySelector("#statistics"),
-            ctx = canvas.getContext("2d");
+        const canvas = document.querySelector("#statistics")
+        const ctx = canvas.getContext("2d");
+        canvas.width = 1000;
         canvas.height = 500;
-        canvas.width = 1000
 
         Title(ctx);
         LineColor(ctx);
@@ -26,10 +26,12 @@ export default class extends React.Component {
                         홈으로
                     </a>
                 </div>
-                <div className="sta-box1 sta-temp">d</div>
-                <div className="sta-box2 sta-temp">d</div>
+                <div className="canvasBox">
+                    <div className="sta-box1 sta-temp">d</div>
+                    <div className="sta-box2 sta-temp">d</div>
+                </div>
                 <Drop></Drop>
-            </article>
+            </article >
         )
     }
 };
