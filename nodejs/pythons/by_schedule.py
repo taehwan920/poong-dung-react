@@ -33,7 +33,7 @@ def obj_factory(li):
 
 
 start_page = 1
-end_page = 20
+end_page = 10
 
 arr_data = []
 

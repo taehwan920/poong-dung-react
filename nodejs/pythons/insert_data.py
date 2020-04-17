@@ -1,4 +1,6 @@
 import mysql.connector as mysql
+import os
+import time
 from by_schedule import arr_data
 
 
@@ -28,4 +30,8 @@ try:
 
     print(f"this is new data! => {cursor.fetchall()}")
 except:
-    raise Exception("Error occured")
+    print("Error occured during fetching data!")
+    print("insert_data.py will restart after 15minutes.")
+    time.sleep(900)
+    print("restart")
+    os.system('python insert_data.py')
