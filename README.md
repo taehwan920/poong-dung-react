@@ -28,7 +28,7 @@ HTML5이 지원하는 <canvas>태그의 2D Context에서 받아온 데이터를 
 - [x] 주기적으로 open API 에서 DB에 데이터를 추가할 스케줄러 구현  - 20.04.14 구현   
 - [x] DB 데이터를 기반으로 한 RESTful API 구현  - 20.04.14 구현   
 - [x] React-router 기능 구현 - 20.04.17 구현   
-- [x]] REST API에서 데이터를 받아와 HTML Canvas를 통한 통계 그래프 구현  - 20.04.17 구현   
+- [x] REST API에서 데이터를 받아와 HTML Canvas를 통한 통계 그래프 구현  - 20.04.17 구현   
    
    
 ## 사용 기술 스택   

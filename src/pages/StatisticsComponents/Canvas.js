@@ -143,6 +143,7 @@ export const DrawGraph = async (ctx) => {
     const dailyEndpoint = `http://localhost:8080/db/1/8`;
     const dailyJSON = await Axios.get(dailyEndpoint);
     const dailyDatas = dailyJSON.data;
+    if (typeof (dailyDatas) !== "object") { return true };
     const dailyTemps = dailyDatas.map(item => item.temperature);
 
     const dailyXYs = [];
@@ -162,6 +163,7 @@ export const DrawGraph = async (ctx) => {
     const monthlyEndpoint = `http://localhost:8080/db/125/132`;
     const monthlyJSON = await Axios.get(monthlyEndpoint);
     const monthlyDatas = monthlyJSON.data;
+    if (typeof (monthlyDatas) !== "object") { return true };
     const monthlyTemps = monthlyDatas.map(item => item.temperature);
 
     const monthlyXYs = [];

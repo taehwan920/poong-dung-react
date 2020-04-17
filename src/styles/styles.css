@@ -1,6 +1,7 @@
 @import "./home.css";
-@import "./daily.css";
+@import "./statistics.css";
 @import "./reset.css";
+@import "./errorPage.css";
 
 html, body, #root {
     width: 100vw;
