@@ -213,7 +213,6 @@ export const DrawGraph = async (ctx) => {
                     box2.style.setProperty('top', `${monthlyXYs[numKey].Y - 42.5}px`);
                     box2.style.setProperty('left', `${monthlyXYs[numKey].X - 85}px`);
                     box2.innerHTML = `${monthlyTemps[key]}℃`;
-
                 }
             };
         });

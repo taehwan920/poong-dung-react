@@ -19,15 +19,15 @@ router.get('/:start/:end', (req, res) => {
     const start = req.params.start - 1;
     const end = req.params.end;
     const dbEnd = end - start;
-    if (start < 0 || dbEnd < 0) {
-        res.redirect('/db/error');
-    } else {
-        db.query(`SELECT * FROM hangang_temp ORDER BY id DESC LIMIT ${start}, ${dbEnd}`, (error, result) => {
-            if (error) { throw error; };
-            console.log('Someone has requested DB!');
-            res.json(result);
-        });
-    };
+    typeof (start) == "number" && typeof (end) === "number"
+        ? start < 0 || dbEnd < 0
+            ? res.redirect('/db/error')
+            : db.query(`SELECT * FROM hangang_temp ORDER BY id DESC LIMIT ${start}, ${dbEnd}`, (error, result) => {
+                if (error) { throw error; };
+                console.log('Someone has requested DB!');
+                res.json(result);
+            })
+        : res.redirect('/db/error')
 });
 
 export default router;

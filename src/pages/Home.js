@@ -6,7 +6,7 @@ import Footer from './Components/Footer';
 export default class extends React.Component {
     render() {
         return (
-            <main className="App">
+            <main className="home">
                 <Temperature></Temperature>
                 <Background></Background>
                 <Footer></Footer>

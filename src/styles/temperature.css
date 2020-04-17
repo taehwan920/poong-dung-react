@@ -11,7 +11,7 @@
     color: white;
 }
 
-.temp__bg-drop{
+.bg-drop{
     width: 50%;
     height: inherit;
     position: absolute;
@@ -20,7 +20,7 @@
     align-items: center;
 }
 
-.temp__bg-drop > .fa-tint {
+.bg-drop > .fa-tint {
     font-size: 300px;
     opacity: 0.1;
 }
