@@ -1,5 +1,5 @@
 #statistics {
-    z-index: 501;
+    z-index: 1000;
 }
 
 .sta-tempBox{
@@ -16,13 +16,15 @@
     text-align: center;
     font-size: 20px;
     line-height: 29px;
-    z-index: 499;
+    z-index: 498;
     position: absolute;
     display: none;
     transition : all 0.1s linear;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     border-bottom-left-radius: 15px;
+    cursor: default;
+    pointer-events: none;
 }
 
 .sta-box1{
