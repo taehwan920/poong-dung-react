@@ -16,17 +16,17 @@ router.get('/error', (req, res) => {
 });
 
 router.get('/:start/:end', (req, res) => {
-    const start = req.params.start - 1;
-    const end = req.params.end;
+    const start = Number(req.params.start - 1);
+    const end = Number(req.params.end);
     const dbEnd = end - start;
-    typeof (start) == "number" && typeof (end) === "number"
-        ? start < 0 || dbEnd < 0
-            ? res.redirect('/db/error')
-            : db.query(`SELECT * FROM hangang_temp ORDER BY id DESC LIMIT ${start}, ${dbEnd}`, (error, result) => {
+    typeof (start) === "number" && typeof (end) === "number"
+        ? start >= 0 && dbEnd >= 0
+            ? db.query(`SELECT * FROM hangang_temp ORDER BY id DESC LIMIT ${start}, ${dbEnd}`, (error, result) => {
                 if (error) { throw error; };
                 console.log('Someone has requested DB!');
                 res.json(result);
             })
+            : res.redirect('/db/error')
         : res.redirect('/db/error')
 });
 
