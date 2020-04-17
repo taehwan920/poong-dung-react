@@ -19,7 +19,7 @@ router.get('/:start/:end', (req, res) => {
     const start = Number(req.params.start - 1);
     const end = Number(req.params.end);
     const dbEnd = end - start;
-    typeof (start) === "string" && typeof (end) === "string"
+    typeof (start) === "number" && typeof (end) === "number"
         ? start >= 0 && dbEnd >= 0
             ? db.query(`SELECT * FROM hangang_temp ORDER BY id DESC LIMIT ${start}, ${dbEnd}`, (error, result) => {
                 if (error) { throw error; };

@@ -1,11 +1,12 @@
 #statistics {
-    z-index: 500;
+    z-index: 501;
 }
 
-.canvasBox{
+.sta-tempBox{
     width:1000px;
     height:500px;
     position: absolute;
+    z-index: 499;
 }
 
 .sta-temp{

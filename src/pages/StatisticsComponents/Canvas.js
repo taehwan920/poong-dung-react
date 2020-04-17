@@ -217,6 +217,7 @@ export default class extends React.Component {
                     const mouseX = e.offsetX;
                     for (const key in coorX) {
                         if (mouseX > coorX[key][0] && mouseX <= coorX[key][1]) {
+                            console.log(mouseX);
                             const numKey = Number(key);
                             tempBox.forEach(box => {
                                 box.classList.add('sta-visualize');
@@ -289,10 +290,14 @@ export default class extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="sta-tempBox">
                 {this.state.errorOccurred
                     ? this.renderRedirect()
-                    : <canvas id="statistics"></canvas>}
+                    : [
+                        <canvas id="statistics"></canvas>,
+                        <div className="sta-box1 sta-temp">d</div>,
+                        <div className="sta-box2 sta-temp">d</div>
+                    ]}
             </div>
         )
     }
