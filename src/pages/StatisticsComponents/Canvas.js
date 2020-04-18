@@ -225,8 +225,8 @@ export default class extends React.Component {
                             box1.style.setProperty('top', `${dailyXYs[numKey].Y - 42.5}px`);
                             box1.style.setProperty('left', `${dailyXYs[numKey].X - 85}px`);
                             box1.innerHTML = `${dailyTemps[key]}℃`;
-                            box2.style.setProperty('top', `${monthlyXYs[numKey].Y - 42.5}px`);
-                            box2.style.setProperty('left', `${monthlyXYs[numKey].X - 85}px`);
+                            box2.style.setProperty('top', `${monthlyXYs[numKey].Y + 10}px`);
+                            box2.style.setProperty('left', `${monthlyXYs[numKey].X + 10}px`);
                             box2.innerHTML = `${monthlyTemps[key]}℃`;
                         }
                     };
