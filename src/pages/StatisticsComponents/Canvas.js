@@ -222,11 +222,11 @@ export default class extends React.Component {
                             tempBox.forEach(box => {
                                 box.classList.add('sta-visualize');
                             });
-                            box1.style.setProperty('top', `${dailyXYs[numKey].Y - 42.5}px`);
-                            box1.style.setProperty('left', `${dailyXYs[numKey].X - 85}px`);
+                            box1.style.setProperty('top', `${dailyXYs[numKey].Y - 37}px`);
+                            box1.style.setProperty('left', `${dailyXYs[numKey].X - 84}px`);
                             box1.innerHTML = `${dailyTemps[key]}℃`;
-                            box2.style.setProperty('top', `${monthlyXYs[numKey].Y + 10}px`);
-                            box2.style.setProperty('left', `${monthlyXYs[numKey].X + 10}px`);
+                            box2.style.setProperty('top', `${monthlyXYs[numKey].Y + 6}px`);
+                            box2.style.setProperty('left', `${monthlyXYs[numKey].X + 2.5}px`);
                             box2.innerHTML = `${monthlyTemps[key]}℃`;
                         }
                     };
