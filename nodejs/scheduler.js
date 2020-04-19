@@ -12,14 +12,11 @@ const options = {
 // C:/Users/taehw/Documents/poong-dung-react/nodejs/pythons
 const schedulerInit = () => {
     const pyRun = () => {
-        PythonShell.run('test.py', options, (err, results) => {
+        PythonShell.run('insert_data.py', options, (err, results) => {
             if (err) { throw err; }
             console.log(results)
         })
     }
-    schedule.scheduleJob('20 * * * * *', () => pyRun());
-    schedule.scheduleJob('40 * * * * *', () => pyRun());
-    schedule.scheduleJob('0 * * * * *', () => pyRun());
     schedule.scheduleJob('0 30 0 * * *', () => pyRun());
     schedule.scheduleJob('0 30 6 * * *', () => pyRun());
     schedule.scheduleJob('0 30 12 * * *', () => pyRun());
