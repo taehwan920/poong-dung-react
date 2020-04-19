@@ -1,11 +1,11 @@
 import mysql from 'mysql';
-import password from './password';
+import { environment } from './environment';
 
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: password,
-    database: 'poongdung'
+    host: environment.DB_HOST,
+    user: environment.DB_USER,
+    password: environment.DB_PASSWORD,
+    database: environment.DB_DB
 });
 
 export default db;
