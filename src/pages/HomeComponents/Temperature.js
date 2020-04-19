@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Drop from '../Components/Drop';
 import { Redirect } from 'react-router-dom';
+import { ENV } from '../../Env';
 
 export default class extends React.Component {
     state = {
@@ -18,7 +19,7 @@ export default class extends React.Component {
     }
 
     getTemperature = async () => {
-        const endpoint = `http://localhost:8080/db/1/1`;
+        const endpoint = `${ENV.API_URL}/db/1/1`;
         const data = await axios.get(endpoint);
         const latest = data.data[0]
         const temperature = latest.temperature;

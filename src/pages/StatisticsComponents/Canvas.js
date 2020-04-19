@@ -1,6 +1,7 @@
 import Axios from 'axios';
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { ENV } from '../../Env';
 
 
 export default class extends React.Component {
@@ -154,7 +155,7 @@ export default class extends React.Component {
                 stdY: this.Standard.frameEndY - this.Standard.frameStartY
             };
 
-            const dailyEndpoint = `http://localhost:8080/db/1/8`;
+            const dailyEndpoint = `${ENV.API_URL}/db/1/8`;
             const dailyJSON = await Axios.get(dailyEndpoint);
             const dailyDatas = dailyJSON.data;
             const dailyTemps = dailyDatas.map(item => item.temperature);
@@ -173,7 +174,7 @@ export default class extends React.Component {
             };
             this.drawLine(ctx, dailyXYs, true);
 
-            const monthlyEndpoint = `http://localhost:8080/db/125/132`;
+            const monthlyEndpoint = `${ENV.API_URL}/db/125/132`;
             const monthlyJSON = await Axios.get(monthlyEndpoint);
             const monthlyDatas = monthlyJSON.data;
             const monthlyTemps = monthlyDatas.map(item => item.temperature);
