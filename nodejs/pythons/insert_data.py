@@ -1,14 +1,15 @@
 import mysql.connector as mysql
 import os
 import time
+import env
 from by_schedule import arr_data
 
 
 db = mysql.connect(
-    host="localhost",
-    user="root",
-    passwd="tae9205",
-    database="poongdung"
+    host=env.ENV["DB_HOST"],
+    user=env.ENV["DB_USER"],
+    passwd=env.ENV["DB_PWD"],
+    database=env.ENV["DB_DB"]
 )
 
 print(arr_data)
