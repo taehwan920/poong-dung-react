@@ -17,7 +17,7 @@ const schedulerInit = () => {
             console.log(results)
         })
     }
-    schedule.scheduleJob('0 24 13 * * *', () => pyRun());
+    schedule.scheduleJob('20 28 * * * *', () => pyRun());
     schedule.scheduleJob('0 30 0 * * *', () => pyRun());
     schedule.scheduleJob('0 30 6 * * *', () => pyRun());
     schedule.scheduleJob('0 30 12 * * *', () => pyRun());
