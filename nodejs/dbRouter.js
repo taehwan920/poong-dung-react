@@ -2,6 +2,10 @@ import db from "./handleDB";
 import express from 'express';
 
 db.connect();
+setInterval(() => {
+    db.query('SELECT 1');
+    console.log('DB server is still running');
+}, 1800000);
 const router = express.Router();
 
 router.get('/', (req, res) => {
