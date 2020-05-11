@@ -2,6 +2,10 @@
 Link: [풍덩💦][poongdungLink]
 
 [poongdungLink]: poongdung.ga
+
+BlogLink: [기술 블로그][techBlog]
+
+[techBlog]: https://hitzi.tistory.com/50
    
 ## 한강 수온 체크 웹앱 Poongdung 입니다.   
     
