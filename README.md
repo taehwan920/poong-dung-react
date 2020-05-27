@@ -6,6 +6,10 @@ Link: [풍덩💦][poongdungLink]
 BlogLink: [기술 블로그][techBlog]
 
 [techBlog]: https://hitzi.tistory.com/50
+
+시연 영상
+
+![poongdung_video](https://user-images.githubusercontent.com/56597998/82978097-aa9b7800-a01e-11ea-8222-0ce8b530ced6.gif)
    
 ## 한강 수온 체크 웹앱 Poongdung 입니다.   
     
