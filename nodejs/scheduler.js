@@ -1,4 +1,5 @@
 import schedule from 'node-schedule';
+import https from 'https';
 import { PythonShell } from 'python-shell';
 
 const options = {
@@ -15,8 +16,9 @@ const schedulerInit = () => {
         PythonShell.run('insert_data.py', options, (err, results) => {
             if (err) { throw err; }
             console.log(results)
-        })
-    }
+        });
+        https.get('https://ythworld.com/');
+    };
     schedule.scheduleJob('0 30 0 * * *', () => pyRun());
     schedule.scheduleJob('0 30 6 * * *', () => pyRun());
     schedule.scheduleJob('0 30 12 * * *', () => pyRun());
