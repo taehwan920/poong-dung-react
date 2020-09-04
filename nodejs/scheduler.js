@@ -11,6 +11,7 @@ const options = {
 }
 
 // C:/Users/taehw/Documents/poong-dung-react/nodejs/pythons
+
 const schedulerInit = () => {
     const pyRun = () => {
         PythonShell.run('insert_data.py', options, (err, results) => {
